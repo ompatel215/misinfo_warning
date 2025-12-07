@@ -3,12 +3,11 @@ import pickle
 import re
 import os
 
-app = Flask(__name__)
+# Configure Flask to find templates in webapp/templates
+app = Flask(__name__, template_folder='webapp/templates')
 
-
-# load trained model
-
-model_path = os.path.join(os.path.dirname(__file__), "..", "models", "misinfo_model.pkl")
+# Load trained model - model is in root directory
+model_path = os.path.join(os.path.dirname(__file__), "misinfo_model.pkl")
 with open(model_path, "rb") as f:
     model = pickle.load(f)
 
@@ -48,6 +47,8 @@ def index():
         probabilities=probabilities
     )
 
-# run app
+# Run app
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use PORT environment variable for Render, default to 5000 for local
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
