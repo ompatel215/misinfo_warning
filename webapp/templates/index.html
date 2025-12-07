@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Political News Misinformation Detector</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        textarea { width: 100%; font-size: 16px; }
+        button { padding: 10px 20px; font-size: 16px; margin-top: 10px; }
+        .warning { color: red; font-weight: bold; }
+        .safe { color: green; font-weight: bold; }
+        .proba { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Political News Misinformation Detector</h1>
+    <form method="POST">
+        <textarea name="user_text" rows="6" placeholder="Paste text here...">{{ user_text }}</textarea><br>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if warning %}
+        {% if '⚠️' in warning %}
+            <p class="warning">{{ warning }}</p>
+        {% else %}
+            <p class="safe">{{ warning }}</p>
+        {% endif %}
+    {% endif %}
+
+    {% if probabilities %}
+        <div class="proba">
+            <strong>Probabilities:</strong><br>
+            {% for key, value in probabilities.items() %}
+                {{ key }}: {{ value }}%<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
