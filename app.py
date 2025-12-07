@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # load trained model
 
-model_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models", "misinfo_model.pkl")
+model_path = os.path.join(os.path.dirname(__file__), "..", "models", "misinfo_model.pkl")
 with open(model_path, "rb") as f:
     model = pickle.load(f)
 
